@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Spinner } from "react-bootstrap";
 
 import { useNavigate, useParams } from "react-router-dom";
 
 import Job from "./Job";
-import { fetchCompany } from "../redux/actionCreator";
+import { fetchCompany, setLoadingOn } from "../redux/actionCreator";
 import { useDispatch, useSelector } from "react-redux";
 
 const CompanySearchResults = () => {
@@ -13,8 +13,9 @@ const CompanySearchResults = () => {
   const params = useParams();
   let navigate = useNavigate();
   let dispatch = useDispatch();
-
+  let loading = useSelector((state) => state.allJobs.isLoading?.content);
   useEffect(() => {
+    dispatch(setLoadingOn());
     dispatch(fetchCompany(params.companyName));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -34,10 +35,22 @@ const CompanySearchResults = () => {
           </div>
           <hr className="mb-0" />
         </Col>
-        <Col xs={10} className="mx-auto">
-          {jobs?.map((jobData) => (
-            <Job key={jobData._id} data={jobData} />
-          ))}
+
+        <Col
+          xs={10}
+          className={
+            !loading
+              ? "mx-auto mb-5"
+              : "mt-5 mx-auto d-flex justify-content-center"
+          }
+        >
+          {!loading ? (
+            jobs?.map((jobData, index) => (
+              <Job key={jobData._id} data={jobData} index={index} />
+            ))
+          ) : (
+            <Spinner animation="border" role="status"></Spinner>
+          )}
         </Col>
       </Row>
     </Container>

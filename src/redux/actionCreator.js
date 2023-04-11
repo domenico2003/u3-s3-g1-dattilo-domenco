@@ -2,6 +2,8 @@ export const SET_FAVOURITES_JOBS = "SET_FAVOURITES_JOBS";
 export const REMOVE_FAVOURITES_JOBS = "REMOVE_FAVOURITES_JOBS";
 export const SET_ALL_JOBS = "SET_ALL_JOBS";
 export const SET_COMPANY = "SET_COMPANY";
+export const SET_ISLOADING_ON = "SET_ISLOADING_ON";
+export const SET_ISLOADING_OFF = "SET_ISLOADING_OFF";
 
 export const removeFavouriteJobCreator = (index) => ({
   type: REMOVE_FAVOURITES_JOBS,
@@ -14,6 +16,13 @@ export const setFavouriteJobCreator = (data) => ({
 export const setAllJobs = (data) => ({
   type: SET_ALL_JOBS,
   payload: data,
+});
+
+export const setLoadingOn = () => ({
+  type: SET_ISLOADING_ON,
+});
+export const setLoadingOff = () => ({
+  type: SET_ISLOADING_OFF,
 });
 
 export const setCompaniCreator = (data) => ({
@@ -37,6 +46,9 @@ export const fetchJobs = (query) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      console.log("finally");
+      dispatch(setLoadingOff());
     }
   };
 };
@@ -55,6 +67,9 @@ export const fetchCompany = (params) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      console.log("finally");
+      dispatch(setLoadingOff());
     }
   };
 };

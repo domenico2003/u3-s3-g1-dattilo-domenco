@@ -1,8 +1,14 @@
-import { SET_ALL_JOBS, SET_COMPANY } from "../../actionCreator";
+import {
+  SET_ALL_JOBS,
+  SET_COMPANY,
+  SET_ISLOADING_OFF,
+  SET_ISLOADING_ON,
+} from "../../actionCreator";
 
 const initialState = {
   jobs: { content: [] },
   company: { content: [] },
+  isLoading: { content: false },
 };
 
 const AllJobsReducer = (state = initialState, action) => {
@@ -23,6 +29,24 @@ const AllJobsReducer = (state = initialState, action) => {
         company: {
           ...state.company,
           content: action.payload,
+        },
+      };
+    case SET_ISLOADING_ON:
+      console.log("sono in " + SET_COMPANY);
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          content: true,
+        },
+      };
+    case SET_ISLOADING_OFF:
+      console.log("sono in " + SET_COMPANY);
+      return {
+        ...state,
+        isLoading: {
+          ...state.isLoading,
+          content: false,
         },
       };
 
