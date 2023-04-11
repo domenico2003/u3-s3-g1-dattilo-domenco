@@ -1,6 +1,7 @@
 import { Alert, Button, Container, ListGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { removeFavouriteJobCreator } from "../redux/actionCreator";
 
 const Favourites = () => {
   let jobs = useSelector((state) => state.favouritesJobs.content);
@@ -46,10 +47,7 @@ const Favourites = () => {
                       variant="danger"
                       className="py-1 px-5 mt-2"
                       onClick={() => {
-                        dispatch({
-                          type: "REMOVE_FAVOURITES_JOBS",
-                          payload: index,
-                        });
+                        dispatch(removeFavouriteJobCreator(index));
                       }}
                     >
                       DELETE
